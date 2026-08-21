@@ -51,8 +51,8 @@ jobs:
             echo "ExtentTestListener.groovy should have been removed"
             exit 1
           fi
-          if [ -f "/tmp/fake-project/Include/config/extent/extent.properties" ]; then
-            echo "extent.properties should be kept by default (no --remove-config)"
+          if [ ! -f "/tmp/fake-project/Include/config/extent/extent.properties" ]; then
+            echo "extent.properties should have been kept by default (no --remove-config)"
             exit 1
           fi
           echo "Uninstall left extent.properties in place and removed the rest, as expected."
