@@ -343,4 +343,4 @@ directly: **bagati.monty@gmail.com**.
 
 ## License
 
-See `LICENSE.md`.
+See [`LICENSE.md`](LICENSE.md).
