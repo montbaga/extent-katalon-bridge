@@ -1,0 +1,62 @@
+# Example GitLab CI config for a Katalon Studio project using the
+# Extent-Katalon Bridge. Copy this into your project's repo as
+# .gitlab-ci.yml, fill in the TODO, and it's ready to run.
+#
+# Uses Katalon's own official Docker image (katalonstudio/katalon), which
+# ships Chrome and Firefox but not Edge - use -browserType="Chrome" here
+# rather than "Edge Chromium". If you specifically need Edge/Windows
+# parity with an Azure Pipelines or GitHub Actions setup, GitLab.com also
+# offers a free-tier Windows hosted runner (tag: saas-windows-medium-amd64)
+# you can target instead by downloading katalonc.exe the same way the other
+# two platforms' Marketplace tasks do internally.
+#
+# The bridge itself needs no configuration here: it auto-detects GitLab CI
+# from the standard GITLAB_CI / CI_PIPELINE_IID variables GitLab sets
+# automatically, so the generated report's System Info panel links back to
+# this exact pipeline with no setup required.
+#
+# Requires the bridge to already be published to npm (npx extent-katalon-bridge)
+# - see README.md's Install section for the alternative OS-specific scripts
+# if you'd rather not depend on that.
+#
+# Katalon 11.3.0's OSGi bundles require JavaSE 21 (confirmed on hosted
+# Windows/Linux VM agents, which don't default to it) - this hasn't been
+# verified against katalonstudio/katalon's own Docker image specifically.
+# If the Katalon step below hangs or fails without a clear error, check the
+# image's own `java -version` first and install/select a JDK 21 explicitly
+# in before_script if it's older.
+#
+# It also isn't confirmed to include Node.js, so before_script fetches a
+# portable Node binary the same way, then runs the bridge installer against
+# this job's own checkout. That keeps CI itself producing real Extent
+# reports even if you never ran the installer locally - nothing here is
+# committed back to your repo, though, so a local Katalon Studio run still
+# needs the installer run and committed once for local Extent reporting.
+
+image: katalonstudio/katalon:11.3.0
+
+stages:
+  - test
+
+before_script:
+  - curl -sL "https://nodejs.org/dist/v18.20.4/node-v18.20.4-linux-x64.tar.gz" -o /tmp/node.tar.gz
+  - tar xf /tmp/node.tar.gz -C /opt
+  - export PATH="/opt/node-v18.20.4-linux-x64/bin:$PATH"
+  - npx extent-katalon-bridge install "$CI_PROJECT_DIR"
+
+run_tests:
+  stage: test
+  artifacts:
+    when: always
+    paths:
+      - Reports/
+      - extent-report/
+  script:
+    # TODO: replace <YourCollection> with your actual Test Suite Collection
+    # path, or swap -testSuiteCollectionPath for
+    # -testSuitePath="Test Suites/<YourSuite>" to run a single suite.
+    #
+    # Add KATALON_API_KEY under Settings > CI/CD > Variables in your
+    # project (mask it) - your Katalon Runtime Engine API key from Katalon
+    # Store > Profile > API Key.
+    - katalonc.sh -projectPath="$CI_PROJECT_DIR" -apiKey="$KATALON_API_KEY" -browserType="Chrome" -retry=0 -statusDelay=20 -executionProfile="default" --config -webui.autoUpdateDrivers=true -testSuiteCollectionPath="Test Suites/<YourCollection>" -reportFolder="$CI_PROJECT_DIR/Reports"

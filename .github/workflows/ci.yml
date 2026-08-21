@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create a fake Katalon project to install into
+        run: |
+          mkdir -p /tmp/fake-project
+          touch /tmp/fake-project/FakeProject.prj
+
+      - name: Run the action against it
+        uses: ./
+        with:
+          project-path: /tmp/fake-project
+
+      - name: Verify expected files landed
+        run: |
+          test -f "/tmp/fake-project/Test Listeners/ExtentTestListener.groovy"
+          test -f "/tmp/fake-project/Keywords/extent/ExtentReportBridge.groovy"
+          test -f "/tmp/fake-project/Keywords/extent/ExtentConfig.groovy"
+          test -f "/tmp/fake-project/Keywords/extent/ExtentKeywords.groovy"
+          test -f "/tmp/fake-project/Include/config/extent/extent.properties"
+          test -f "/tmp/fake-project/Include/config/extent/categories.json"
+          test -f "/tmp/fake-project/Drivers/extentreports-5.1.2.jar"
+          test -f "/tmp/fake-project/Drivers/freemarker-2.3.32.jar"
+          test -f "/tmp/fake-project/Drivers/rxjava-3.1.6.jar"
+          test -f "/tmp/fake-project/Drivers/reactive-streams-1.0.4.jar"
+          test -f "/tmp/fake-project/.extent-bridge/manifest.txt"
+          echo "All expected files present."
+
+      - name: Re-run install to verify the upgrade path is idempotent
+        uses: ./
+        with:
+          project-path: /tmp/fake-project
+
+      - name: Run uninstall and verify cleanup
+        run: |
+          node bin/cli.js uninstall /tmp/fake-project
+          if [ -f "/tmp/fake-project/Test Listeners/ExtentTestListener.groovy" ]; then
+            echo "ExtentTestListener.groovy should have been removed"
+            exit 1
+          fi
+          if [ -f "/tmp/fake-project/Include/config/extent/extent.properties" ]; then
+            echo "extent.properties should be kept by default (no --remove-config)"
+            exit 1
+          fi
+          echo "Uninstall left extent.properties in place and removed the rest, as expected."
