@@ -84,6 +84,27 @@ platform-specific test changes. Full example in
 </tr>
 </table>
 
+## Sponsors
+
+<!-- Company logos go here as Priority Partner / Company sponsors join -->
+
+If your team relies on this in CI, consider
+[sponsoring the project](https://github.com/sponsors/montbaga) to support
+ongoing maintenance:
+
+| Tier | Price | Gets you |
+|---|---|---|
+| Coffee | $5/mo | Your name added to the Backers list below |
+| Backer | $15/mo | Everything above, plus priority attention on your issues |
+| Company | $100/mo | Your company's logo and site link here, near the top of the README |
+| Priority Partner | $199/mo | Everything above, plus direct email help wiring the bridge into your CI setup |
+
+## Backers
+
+<!-- Names go here as backers join -->
+
+Thanks to everyone supporting this project.
+
 ## Why this exists
 
 Katalon Studio does have an official Extent Reports integration - but it's
