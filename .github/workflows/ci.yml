@@ -56,3 +56,27 @@ jobs:
             exit 1
           fi
           echo "Uninstall left extent.properties in place and removed the rest, as expected."
+
+  # `uses: ./` above proves the action's own logic works, but resolves
+  # differently than how a real consumer references it - this job checks
+  # the tagged-release path (montbaga/extent-katalon-bridge@v1) that
+  # example CI configs and consumer workflows actually use.
+  test-tagged-reference:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create a fake Katalon project to install into
+        run: |
+          mkdir -p /tmp/fake-project-tagged
+          touch /tmp/fake-project-tagged/FakeProject.prj
+
+      - name: Run the action via its tagged reference
+        uses: montbaga/extent-katalon-bridge@v1
+        with:
+          project-path: /tmp/fake-project-tagged
+
+      - name: Verify expected files landed
+        run: |
+          test -f "/tmp/fake-project-tagged/Test Listeners/ExtentTestListener.groovy"
+          test -f "/tmp/fake-project-tagged/Keywords/extent/ExtentReportBridge.groovy"
+          test -f "/tmp/fake-project-tagged/Include/config/extent/extent.properties"
+          echo "Tagged reference (@v1) resolves and installs correctly."
