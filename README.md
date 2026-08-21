@@ -1,5 +1,6 @@
 # Extent-Katalon Bridge
 
+[![npm version](https://img.shields.io/npm/v/extent-katalon-bridge.svg)](https://www.npmjs.com/package/extent-katalon-bridge)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE.md)
 
 Turn any Katalon Studio project into an Extent Reports-reporting project by
@@ -16,6 +17,72 @@ The version this bridge uses (5.1.2) still works fully and isn't going
 anywhere, but it won't receive further updates from its own maintainer.
 Worth factoring in if you're choosing a reporting library for the long
 term.
+
+## See It in Action
+
+**1. Install with one command**
+
+![Install with npx](demo/images/install_npx_1st_Step.png)
+
+**2. Run your test suite or collection like you always do**
+
+![Run a test suite](demo/images/run_test_suite_or_collection_2nd_Step.png)
+
+**3. The Extent report is generated automatically, right inside Katalon Studio**
+
+![Report generated in Katalon Studio](demo/images/extent_report_3rd_Step.png)
+
+**4. Open it and get the full picture - dashboard, steps, categories, suites**
+
+<table>
+<tr><th>Dashboard</th><th>Tests &amp; steps</th><th>Categories</th><th>Suites</th></tr>
+<tr>
+<td><img src="demo/images/extent_html_last_step_1.png" width="220"></td>
+<td><img src="demo/images/extent_html_last_step_2.png" width="220"></td>
+<td><img src="demo/images/extent_html_last_step_3.png" width="220"></td>
+<td><img src="demo/images/extent_html_last_step_4.png" width="220"></td>
+</tr>
+</table>
+
+## Verified in CI
+
+The same Test Suite Collection runs unmodified on Azure Pipelines hosted
+agents for Windows, macOS, and Linux - same YAML steps, no
+platform-specific test changes. Full example in
+[`azure-pipelines.example.yml`](azure-pipelines.example.yml).
+
+**The pipeline itself, running on hosted agents**
+
+<table>
+<tr><th>Windows</th><th>macOS</th><th>Linux</th></tr>
+<tr>
+<td><img src="demo/images/windows_ci.png" width="280"></td>
+<td><img src="demo/images/ci_macos.png" width="280"></td>
+<td><img src="demo/images/ci_linux.png" width="280"></td>
+</tr>
+</table>
+
+**Each platform produces its own Extent report, environment details and all**
+
+<table>
+<tr><th>Windows</th><th>macOS</th><th>Linux</th></tr>
+<tr>
+<td><img src="demo/images/extent_report_windows_ci.png" width="280"></td>
+<td><img src="demo/images/extent_report_macos_ci.jpeg" width="280"></td>
+<td><img src="demo/images/extent_report_linux_ci.jpeg" width="280"></td>
+</tr>
+</table>
+
+**And published as downloadable pipeline artifacts, ready to open from the run itself**
+
+<table>
+<tr><th>Windows</th><th>macOS</th><th>Linux</th></tr>
+<tr>
+<td><img src="demo/images/windows_artifacts.png" width="280"></td>
+<td><img src="demo/images/macos_artifacts.png" width="280"></td>
+<td><img src="demo/images/ci_linux_artifacts.png" width="280"></td>
+</tr>
+</table>
 
 ## Why this exists
 
@@ -54,6 +121,10 @@ Needs Node.js. Works identically on Windows, macOS, and Linux.
 npx extent-katalon-bridge install "/path/to/your/katalon/project"      # add --force to also overwrite a customized extent.properties
 npx extent-katalon-bridge uninstall "/path/to/your/katalon/project"    # add --remove-config to also delete extent.properties/categories.json
 ```
+
+`npx` fetches and runs it without installing anything globally. To install
+it once and reuse it: `npm install -g extent-katalon-bridge`, then run
+`extent-katalon-bridge install ...` directly.
 </details>
 
 <details>
@@ -62,6 +133,9 @@ npx extent-katalon-bridge uninstall "/path/to/your/katalon/project"    # add --r
 **Just click:** double-click **`Windows\Install.bat`**, then pick your
 Katalon project folder in the dialog that opens. Uninstall the same way
 with **`Windows\Uninstall.bat`**.
+
+**Drag-and-drop:** drop your project folder onto `Install.bat` (or
+`Uninstall.bat`) to skip the dialog entirely.
 
 **Scripted / CI** (run from the repo root):
 ```powershell
@@ -157,7 +231,10 @@ directly without a saved suite. A Test Suite Collection produces exactly
 one combined report, not one per Test Suite. Suites are listed
 alphabetically by name in the report's Suites tab; a suite that runs more
 than once in one Collection (e.g. the same suite with two different
-browsers) shows up as its own separate entry each time, labeled by browser.
+browsers) shows up as its own separate entry each time, labeled by browser
+- or with no browser label at all if that particular occurrence never
+actually opened one (an API-only run, or a WebUI session that failed to
+start).
 
 **Opt-in extra detail**, from inside a Test Case script or Cucumber glue:
 
@@ -196,28 +273,68 @@ override any key per environment with `EXTENT_<KEY_IN_UPPER_SNAKE_CASE>`
 
 ## CI setup
 
-Works with Katalon's own **"Execute Katalon Studio Tests"** Azure DevOps
-extension the same way a local run does - install the bridge into the
-project once (locally, or as a pipeline step via `npx extent-katalon-bridge
-install .`), then run your Test Suite or Test Suite Collection through
-`katalonTask@1` as usual. The generated report lands in `extent-report/`
-alongside your other build output; publish it as a pipeline artifact to
-download after the run.
+`executor.json`-equivalent detection is automatic: the generated report's
+System Info panel picks up Jenkins, Azure Pipelines, GitHub Actions, and
+GitLab CI from each platform's own standard environment variables, so it's
+clear which build produced it - nothing to configure for that part on any
+of them.
 
-Two things worth knowing on hosted agents:
+This repo includes three ready-to-copy configs -
+[`azure-pipelines.example.yml`](azure-pipelines.example.yml),
+[`github-actions.example.yml`](github-actions.example.yml),
+[`gitlab-ci.example.yml`](gitlab-ci.example.yml). Pick the one matching
+your platform, copy it in under the filename your CI expects, fill in the
+one TODO (your Test Suite or Test Suite Collection path), and add your
+Katalon API key as described below.
 
-- **Linux agents need JDK 21 pinned explicitly.** Katalon 11.3.0's OSGi
-  bundles require `osgi.ee JavaSE 21`, and Ubuntu hosted images don't
-  default to it. Point `JAVA_HOME` (and prepend its `bin` to `PATH`) at a
-  JDK 21 install before the `katalonTask@1` step - Microsoft-hosted Ubuntu
-  images ship one at `$(JAVA_HOME_21_X64)`.
-- **A generated report won't render styled if previewed through your CI
-  system's own build-artifact browser instead of being downloaded.**
-  That's a limitation of previewing a multi-file HTML report inline inside
-  a web UI (relative CSS/JS paths and external stylesheets generally don't
-  resolve there), not specific to this bridge. Download the artifact,
-  extract it fully, and open `Index.html` from the extracted folder - it
-  renders exactly as intended, no server needed.
+### Azure Pipelines
+
+1. Copy `azure-pipelines.example.yml` into your repo as `azure-pipelines.yml`.
+2. Install the **"Execute Katalon Studio Tests"** extension from the Azure
+   DevOps Marketplace if your organization doesn't already have it.
+3. Under **Pipelines → Library**, create a variable group named `Katalon`
+   with a secret variable `KatalonApiKey` holding your Katalon Runtime
+   Engine API key (Katalon Store → Profile → API Key).
+4. Replace `<YourCollection>` in the `executeArgs` line with your actual
+   Test Suite Collection path (or swap `-testSuiteCollectionPath` for
+   `-testSuitePath="Test Suites/<YourSuite>"` to run a single suite
+   instead).
+5. Commit and push - the pipeline runs on every push to `main`.
+
+Reports show up on the pipeline run's **Summary** tab, in the small
+"X published" artifacts panel near the top - both the raw Katalon output
+(`katalon-reports`) and the generated Extent HTML (`extent-report`).
+
+### GitHub Actions
+
+1. Copy `github-actions.example.yml` into your repo as
+   `.github/workflows/katalon-ci.yml`.
+2. Under **Settings → Secrets and variables → Actions**, add a repository
+   secret named `KATALON_API_KEY` with your Katalon Runtime Engine API key.
+3. Replace `<YourCollection>` in the `args` line the same way as above.
+4. Commit and push.
+
+Reports show up on the **Actions** tab, under that run's summary page, in
+the **Artifacts** section at the bottom. This example references the
+bridge itself as a GitHub Action (`uses: montbaga/extent-katalon-bridge@v1`)
+rather than `npx` - it works directly from a tagged release, with no
+dependency on npm at all.
+
+### GitLab CI
+
+1. Copy `gitlab-ci.example.yml` into your repo as `.gitlab-ci.yml`.
+2. Under **Settings → CI/CD → Variables**, add a variable named
+   `KATALON_API_KEY` with your Katalon Runtime Engine API key, and check
+   "Mask variable".
+3. Replace `<YourCollection>` in the `script` line the same way as above.
+4. Commit and push.
+
+This one differs from the other two in one respect: it uses Katalon's own
+official Docker image (`katalonstudio/katalon`) instead of downloading
+Katalon onto a hosted VM, so it runs on **Chrome, not Edge** - adjust
+`-browserType` and any browser-specific test logic accordingly.
+
+Reports show up on the pipeline job's page, in the **Job artifacts** panel.
 
 ## Support
 
