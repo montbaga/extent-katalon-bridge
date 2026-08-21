@@ -341,6 +341,12 @@ Reports show up on the pipeline job's page, in the **Job artifacts** panel.
 Questions or bug reports: open an issue on this repo, or reach out
 directly: **bagati.monty@gmail.com**.
 
+Bugs in this bridge's own code, we fix directly. Extent Reports itself
+won't get further updates from its own maintainer, but where its behavior
+doesn't produce a correct report, this bridge works around it rather than
+leaving it broken - real issues get addressed here even when the
+underlying library itself can't be.
+
 ## License
 
 See [`LICENSE.md`](LICENSE.md).
