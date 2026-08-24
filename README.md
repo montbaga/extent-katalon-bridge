@@ -1,7 +1,10 @@
 # Extent-Katalon Bridge
 
 [![npm version](https://img.shields.io/npm/v/extent-katalon-bridge.svg)](https://www.npmjs.com/package/extent-katalon-bridge)
-[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE.md)
+[![CI](https://img.shields.io/github/actions/workflow/status/montbaga/extent-katalon-bridge/ci.yml?branch=main&label=CI)](https://github.com/montbaga/extent-katalon-bridge/actions/workflows/ci.yml)
+[![License: Apache-2.0](https://img.shields.io/npm/l/extent-katalon-bridge.svg)](LICENSE.md)
+[![Last commit](https://img.shields.io/github/last-commit/montbaga/extent-katalon-bridge.svg)](https://github.com/montbaga/extent-katalon-bridge/commits/main)
+[![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-red)](https://github.com/sponsors/montbaga)
 
 Turn any Katalon Studio project into an Extent Reports-reporting project by
 double-clicking one file - no plugin installation from the Katalon Store, no
