@@ -1,6 +1,6 @@
 {
   "name": "extent-katalon-bridge",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Zero-touch Extent Reports reporting for Katalon Studio projects - install with one command, no plugin, no manual Test Listener authoring.",
   "keywords": [
     "katalon",

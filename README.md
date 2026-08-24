@@ -362,8 +362,8 @@ Reports show up on the pipeline job's page, in the **Job artifacts** panel.
 
 ## Support
 
-Questions or bug reports: open an issue on this repo, or reach out
-directly: **bagati.monty@gmail.com**.
+**Actively maintained.** Questions or bug reports: open an issue on this
+repo, or reach out directly: **bagati.monty@gmail.com**.
 
 Bugs in this bridge's own code, we fix directly. Extent Reports itself
 won't get further updates from its own maintainer, but where its behavior
