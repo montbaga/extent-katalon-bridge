@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 220" width="1200" height="220" role="img" aria-label="Extent-Katalon Bridge lifecycle from ExtentTestListener to standalone HTML">
+  <defs>
+    <style>
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <rect x="12" y="10" width="1176" height="200" rx="16" fill="#0d1221" stroke="#25304d" stroke-width="1.2"/>
+  <text x="32" y="34" class="mono" font-size="10.5" letter-spacing="1.2" fill="#8896b3">IN-PROCESS EXTENT ENGINE &amp; STEP CONVERSION</text>
+  <text x="1168" y="34" text-anchor="end" class="mono" font-size="10.5" letter-spacing="1.0" fill="#8896b3">4 JARS IN DRIVERS/ · NEVER SHELLS OUT</text>
+
+  <rect x="28" y="52" width="224" height="136" rx="12" fill="#131a30" stroke="#283556"/>
+  <rect x="44" y="67" width="38" height="20" rx="5" fill="#1d2642"/>
+  <text x="63" y="81" text-anchor="middle" class="mono" font-size="10.5" fill="#d2dcf2">01</text>
+  <text x="44" y="108" class="sans" font-size="15.5" font-weight="700" fill="#ece6da">ExtentTestListener</text>
+  <text x="44" y="129" class="sans" font-size="11.5" fill="#9fb0d0">Auto-discovered by Katalon;</text>
+  <text x="44" y="146" class="sans" font-size="11.5" fill="#9fb0d0">hooks suite, test &amp; WebUI</text>
+  <text x="44" y="163" class="sans" font-size="11.5" fill="#9fb0d0">inline failure capture.</text>
+
+  <line x1="252" y1="120" x2="292" y2="120" stroke="#36466b" stroke-width="2" stroke-dasharray="4 4"/>
+  <circle r="3.8" fill="#818cf8">
+    <animateMotion dur="1.8s" repeatCount="indefinite" path="M254,120 L290,120"/>
+  </circle>
+
+  <rect x="292" y="52" width="234" height="136" rx="12" fill="#131a30" stroke="#283556"/>
+  <rect x="308" y="67" width="38" height="20" rx="5" fill="#1d2642"/>
+  <text x="327" y="81" text-anchor="middle" class="mono" font-size="10.5" fill="#d2dcf2">02</text>
+  <text x="308" y="108" class="sans" font-size="15.5" font-weight="700" fill="#ece6da">Logs &amp; Categories</text>
+  <text x="308" y="129" class="sans" font-size="11.5" fill="#9fb0d0">Parses Katalon XML logs</text>
+  <text x="308" y="146" class="sans" font-size="11.5" fill="#9fb0d0">into nested steps &amp; matches</text>
+  <text x="308" y="163" class="sans" font-size="11.5" fill="#9fb0d0">categories.json patterns.</text>
+
+  <line x1="526" y1="120" x2="566" y2="120" stroke="#818cf8" stroke-opacity="0.55" stroke-width="2" stroke-dasharray="4 4"/>
+  <circle r="4" fill="#818cf8">
+    <animateMotion dur="1.8s" begin="0.45s" repeatCount="indefinite" path="M528,120 L564,120"/>
+  </circle>
+
+  <rect x="566" y="48" width="258" height="144" rx="13" fill="#151d36" stroke="#818cf8" stroke-opacity="0.72" stroke-width="1.5"/>
+  <rect x="582" y="63" width="136" height="20" rx="5" fill="#20254a"/>
+  <text x="650" y="77" text-anchor="middle" class="mono" font-size="9.5" fill="#a5b4fc">03 · EXTENT SPARK 5.1.2</text>
+  <text x="582" y="106" class="sans" font-size="16" font-weight="700" fill="#ece6da">ExtentReportBridge</text>
+  <text x="582" y="127" class="sans" font-size="11.5" fill="#c2cee6">Reads EXTENT_* env vars;</text>
+  <text x="582" y="144" class="sans" font-size="11.5" fill="#c2cee6">renders Spark HTML via</text>
+  <text x="582" y="161" class="sans" font-size="11.5" fill="#c2cee6">bundled FreeMarker &amp; Rx.</text>
+  <text x="582" y="180" class="mono" font-size="9.2" fill="#a5b4fc">ZERO EXTERNAL CLI TOOLS</text>
+
+  <path d="M824,90 C852,90 854,70 884,70" fill="none" stroke="#3dd98f" stroke-opacity="0.55" stroke-width="1.6" stroke-dasharray="4 4"/>
+  <path d="M824,120 L884,120" fill="none" stroke="#818cf8" stroke-opacity="0.55" stroke-width="1.6" stroke-dasharray="4 4"/>
+  <path d="M824,150 C852,150 854,170 884,170" fill="none" stroke="#ff7b3b" stroke-opacity="0.55" stroke-width="1.6" stroke-dasharray="4 4"/>
+
+  <circle r="3.4" fill="#3dd98f"><animateMotion dur="2s" repeatCount="indefinite" path="M824,90 C852,90 854,70 884,70"/></circle>
+  <circle r="3.4" fill="#818cf8"><animateMotion dur="2s" begin="0.3s" repeatCount="indefinite" path="M824,120 L884,120"/></circle>
+  <circle r="3.4" fill="#ff7b3b"><animateMotion dur="2s" begin="0.6s" repeatCount="indefinite" path="M824,150 C852,150 854,170 884,170"/></circle>
+
+  <rect x="884" y="48" width="288" height="44" rx="9" fill="#10231e" stroke="#3dd98f" stroke-opacity="0.45"/>
+  <rect x="896" y="60" width="84" height="20" rx="5" fill="#18382c"/>
+  <text x="938" y="74" text-anchor="middle" class="mono" font-size="9.5" fill="#3dd98f">INDEX.HTML</text>
+  <text x="990" y="67" class="sans" font-size="12" font-weight="700" fill="#ece6da">Combined Run Report</text>
+  <text x="990" y="83" class="sans" font-size="10.5" fill="#9db6ad">Suites sorted + multi-browser</text>
+
+  <rect x="884" y="98" width="288" height="44" rx="9" fill="#151b33" stroke="#818cf8" stroke-opacity="0.5"/>
+  <rect x="896" y="110" width="84" height="20" rx="5" fill="#21274d"/>
+  <text x="938" y="124" text-anchor="middle" class="mono" font-size="9.5" fill="#a5b4fc">THEMES</text>
+  <text x="990" y="117" class="sans" font-size="12" font-weight="700" fill="#ece6da">Standard / Dark Theme</text>
+  <text x="990" y="133" class="sans" font-size="10.5" fill="#a8b4d4">Inline screenshots &amp; logs</text>
+
+  <rect x="884" y="148" width="288" height="44" rx="9" fill="#231713" stroke="#ff7b3b" stroke-opacity="0.45"/>
+  <rect x="896" y="160" width="84" height="20" rx="5" fill="#382219"/>
+  <text x="938" y="174" text-anchor="middle" class="mono" font-size="9.5" fill="#ff9666">SYSTEM INFO</text>
+  <text x="990" y="167" class="sans" font-size="12" font-weight="700" fill="#ece6da">CI Auto-Detected</text>
+  <text x="990" y="183" class="sans" font-size="10.5" fill="#b8a59e">Win / macOS / Linux + Jenkins</text>
+</svg>

@@ -1,266 +1,195 @@
-# Extent-Katalon Bridge
+<div align="center">
 
-[![npm version](https://img.shields.io/npm/v/extent-katalon-bridge.svg)](https://www.npmjs.com/package/extent-katalon-bridge)
-[![CI](https://img.shields.io/github/actions/workflow/status/montbaga/extent-katalon-bridge/ci.yml?branch=main&label=CI)](https://github.com/montbaga/extent-katalon-bridge/actions/workflows/ci.yml)
-[![License: Apache-2.0](https://img.shields.io/npm/l/extent-katalon-bridge.svg)](LICENSE.md)
-[![Last commit](https://img.shields.io/github/last-commit/montbaga/extent-katalon-bridge.svg)](https://github.com/montbaga/extent-katalon-bridge/commits/main)
-[![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-red)](https://github.com/sponsors/montbaga)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="demo/images/hero-banner-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="demo/images/hero-banner-light.svg">
+  <img src="demo/images/hero-banner-dark.svg" alt="Extent-Katalon Bridge — zero-touch Extent Reports 5 HTML for Katalon Studio" width="100%">
+</picture>
 
-Turn any Katalon Studio project into an Extent Reports-reporting project by
-double-clicking one file - no plugin installation from the Katalon Store, no
-manual Test Listener authoring, no `CustomKeywords` calls pasted into your
-test cases, no changes to existing Test Cases or Test Suites.
+<br><br>
 
-See [`ARCHITECTURE.md`](ARCHITECTURE.md) for how this is actually built
-under the hood.
+[**See It in Action**](#see-it-in-action) &nbsp;·&nbsp;
+[**Why Zero-Touch**](#why-zero-touch) &nbsp;·&nbsp;
+[**Install**](#install--uninstall) &nbsp;·&nbsp;
+[**Using It & Config**](#using-it--configuration) &nbsp;·&nbsp;
+[**CI Setup**](#ci-setup) &nbsp;·&nbsp;
+[**Contact Monty**](#lets-talk)
 
-**A note on Extent Reports itself:** its maintainer marked the project
-sunset in early 2025, in favor of a successor project called ChainTest.
-The version this bridge uses (5.1.2) still works fully and isn't going
-anywhere, but it won't receive further updates from its own maintainer.
-Worth factoring in if you're choosing a reporting library for the long
-term.
+<br>
 
-## See It in Action
+<a href="https://www.npmjs.com/package/extent-katalon-bridge"><img alt="npm version" src="https://img.shields.io/npm/v/extent-katalon-bridge.svg?color=818cf8&labelColor=0d1221"></a>
+<a href="https://github.com/montbaga/extent-katalon-bridge/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/montbaga/extent-katalon-bridge/actions/workflows/ci.yml/badge.svg"></a>
+<a href="LICENSE.md"><img alt="License: Apache 2.0" src="https://img.shields.io/badge/license-Apache%202.0-3dd98f?labelColor=0d1221"></a>
+<a href="https://github.com/montbaga/extent-katalon-bridge/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/montbaga/extent-katalon-bridge.svg?color=ece6da&labelColor=0d1221"></a>
+<a href="#lets-talk"><img alt="Say hello to Monty Bagati" src="https://img.shields.io/badge/say_hello-Monty_Bagati-ffc857?labelColor=131a30"></a>
+<a href="https://github.com/sponsors/montbaga"><img alt="Sponsor" src="https://img.shields.io/badge/sponsor-%E2%9D%A4-ff7b3b?labelColor=0d1221"></a>
 
-**1. Install with one command**
+</div>
 
-![Install with npx](demo/images/install_npx_1st_Step.png)
+<br>
 
-**2. Run your test suite or collection like you always do**
+> **Zero-touch Extent Reports for Katalon Studio:** Turn any Katalon project into an Extent Reports 5 project by double-clicking one file or running `npx` — **no plugin from the Katalon Store, no manual Test Listener authoring, no `CustomKeywords` / `attachLog()` pasted into test cases, and zero edits to Test Cases or Test Suites**. Read [`ARCHITECTURE.md`](ARCHITECTURE.md) for the full design.
+>
+> **A candid note on Extent Reports (`5.1.2`):** Its upstream maintainer marked Extent Reports sunset in early 2025 in favor of ChainTest. `5.1.2` continues working reliably and **this bridge is actively maintained** — bridge bugs are fixed directly, and upstream Extent quirks are worked around so reports stay accurate.
 
-![Run a test suite](demo/images/run_test_suite_or_collection_2nd_Step.png)
+<br>
 
-**3. The Extent report is generated automatically, right inside Katalon Studio**
+## See it in action
 
-![Report generated in Katalon Studio](demo/images/extent_report_3rd_Step.png)
-
-**4. Open it and get the full picture - dashboard, steps, categories, suites**
-
-<table>
-<tr><th>Dashboard</th><th>Tests &amp; steps</th><th>Categories</th><th>Suites</th></tr>
+<table width="100%">
 <tr>
-<td><img src="demo/images/extent_html_last_step_1.png" width="220"></td>
-<td><img src="demo/images/extent_html_last_step_2.png" width="220"></td>
-<td><img src="demo/images/extent_html_last_step_3.png" width="220"></td>
-<td><img src="demo/images/extent_html_last_step_4.png" width="220"></td>
+<td width="33.3%" valign="top">
+  <strong>1 · Zero-Touch Install</strong><br><br>
+  One command or OS installer copies listener hooks, Keywords, config, and 4 bundled JARs — zero Store plugins or OSGi packaging.
+</td>
+<td width="33.3%" valign="top">
+  <strong>2 · Auto Step Conversion</strong><br><br>
+  Converts Katalon's own execution log into nested Extent steps with inline WebUI screenshots — zero manual <code>attachLog()</code> edits.
+</td>
+<td width="33.3%" valign="top">
+  <strong>3 · In-Process &amp; Fault-Safe</strong><br><br>
+  Renders <code>extent-report/&lt;Name&gt;_&lt;ts&gt;/Index.html</code> directly in Java (<code>standard</code> or <code>dark</code> theme); hooks isolate exceptions so tests never fail.
+</td>
 </tr>
 </table>
 
-## Verified in CI
-
-The same Test Suite Collection runs unmodified on Azure Pipelines hosted
-agents for Windows, macOS, and Linux - same YAML steps, no
-platform-specific test changes. Full example in
-[`azure-pipelines.example.yml`](azure-pipelines.example.yml).
-
-**The pipeline itself, running on hosted agents**
+<br>
 
 <table>
-<tr><th>Windows</th><th>macOS</th><th>Linux</th></tr>
-<tr>
-<td><img src="demo/images/windows_ci.png" width="280"></td>
-<td><img src="demo/images/ci_macos.png" width="280"></td>
-<td><img src="demo/images/ci_linux.png" width="280"></td>
-</tr>
+  <tr>
+    <td width="50%" valign="top"><img src="demo/images/install_npx_1st_Step.png" alt="Install Extent-Katalon Bridge with one npx command"><br><sub><b>1 · Install in one command:</b> Run <code>npx extent-katalon-bridge install</code> or double-click your OS installer.</sub></td>
+    <td width="50%" valign="top"><img src="demo/images/run_test_suite_or_collection_2nd_Step.png" alt="Run a Katalon test suite or collection"><br><sub><b>2 · Run normally:</b> Execute any Test Suite, Collection, or lone Test Case as usual.</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><img src="demo/images/extent_report_3rd_Step.png" alt="Extent report generated inside Katalon Studio"><br><sub><b>3 · Generated in-project:</b> Standalone <code>extent-report/&lt;Name&gt;_&lt;timestamp&gt;/</code> lands straight inside your project.</sub></td>
+    <td width="50%" valign="top"><img src="demo/images/extent_html_last_step_1.png" alt="Extent Reports 5 Spark dashboard view"><br><sub><b>4 · Spark Dashboard:</b> Tests, Steps, Log events rings, multi-suite Timeline, and Suites summary.</sub></td>
+  </tr>
 </table>
 
-**Each platform produces its own Extent report, environment details and all**
+<details>
+<summary><b>Explore Steps, Categories &amp; Suites views (3 more report tabs)</b></summary>
 
 <table>
-<tr><th>Windows</th><th>macOS</th><th>Linux</th></tr>
-<tr>
-<td><img src="demo/images/extent_report_windows_ci.png" width="280"></td>
-<td><img src="demo/images/extent_report_macos_ci.jpeg" width="280"></td>
-<td><img src="demo/images/extent_report_linux_ci.jpeg" width="280"></td>
-</tr>
+  <tr>
+    <td width="33.3%" valign="top"><img src="demo/images/extent_html_last_step_2.png" alt="Extent tests and nested execution steps tab"><br><sub><b>Tests &amp; steps:</b> Nested Katalon execution steps &amp; timings.</sub></td>
+    <td width="33.3%" valign="top"><img src="demo/images/extent_html_last_step_3.png" alt="Extent failure categories tab"><br><sub><b>Categories:</b> Automatic failure classification via <code>categories.json</code>.</sub></td>
+    <td width="33.3%" valign="top"><img src="demo/images/extent_html_last_step_4.png" alt="Extent suites tab breakdown"><br><sub><b>Suites:</b> Alphabetical suite + browser breakdown across Collections.</sub></td>
+  </tr>
 </table>
 
-**And published as downloadable pipeline artifacts, ready to open from the run itself**
+</details>
 
-<table>
-<tr><th>Windows</th><th>macOS</th><th>Linux</th></tr>
-<tr>
-<td><img src="demo/images/windows_artifacts.png" width="280"></td>
-<td><img src="demo/images/macos_artifacts.png" width="280"></td>
-<td><img src="demo/images/ci_linux_artifacts.png" width="280"></td>
-</tr>
-</table>
+---
 
-## Sponsors
+## Why zero-touch
 
-<!-- Company logos go here as Priority Partner / Company sponsors join -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="demo/images/five-pillars-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="demo/images/five-pillars-light.svg">
+  <img src="demo/images/five-pillars-dark.svg" alt="Five Extent-Katalon Bridge advantages: no Store plugin, auto steps, categories.json, inline shots, actively maintained" width="100%">
+</picture>
 
-If your team relies on this in CI, consider
-[sponsoring the project](https://github.com/sponsors/montbaga) to support
-ongoing maintenance:
-
-| Tier | Price | Gets you |
-|---|---|---|
-| Coffee | $5/mo | Your name added to the Backers list below |
-| Backer | $15/mo | Everything above, plus priority attention on your issues |
-| Company | $100/mo | Your company's logo and site link here, near the top of the README |
-| Priority Partner | $199/mo | Everything above, plus direct email help wiring the bridge into your CI setup |
-
-## Backers
-
-<!-- Names go here as backers join -->
-
-Thanks to everyone supporting this project.
-
-## Why this exists
-
-Katalon Studio does have an official Extent Reports integration - but it's
-the opposite of zero-touch: install a plugin from the Katalon Store, write
-your own Test Listener by hand, and paste an explicit
-`CustomKeywords.'com.katalon.extent.report.ExtentReport.attachLog'()` call
-into every test case script you want logged.
+<br><br>
 
 | Problem with the official plugin path | How this bridge solves it |
-|---|---|
-| Install from the Katalon Store, keep its jar version in sync with your Katalon version | Ships the exact jars it needs directly in the project - no Store, no OSGi plugin packaging at all |
-| Write your own Test Listener by hand | Ships a pre-wired one - `Test Listeners/ExtentTestListener.groovy` |
-| Paste an explicit `attachLog()`/`CustomKeywords` call into every test case you want logged | Auto-converts Katalon's own per-test-case execution log into nested Extent steps - zero-touch by default |
-| A reporting bug could fail or change the outcome of a real test | Every hook catches its own exceptions and only logs a warning |
-
-## Requirements
-
-- Katalon Studio (built and tested against its Java 17/21 runtime)
-- Windows, macOS, or Linux. On Linux, Katalon 11.3.0's OSGi bundles require
-  JavaSE 21; most hosted CI Ubuntu images default to an older JDK, so pin
-  `JAVA_HOME` to a JDK 21 install explicitly in that environment (see CI
-  setup below)
-- Nothing else - no external commandline tool to install. Report
-  generation happens entirely in-process using the four jars in
-  `payload/Drivers/`
-
-## Install / Uninstall
+| :--- | :--- |
+| **Store plugin &amp; version lock-in** | Ships the 4 exact JARs directly inside `Drivers/` — zero Store download or OSGi packaging |
+| **Hand-authoring Test Listeners** | Ships a pre-wired auto-discovered listener — `Test Listeners/ExtentTestListener.groovy` |
+| **Pasting `attachLog()` in every script** | Auto-converts Katalon's execution log into nested Extent steps by default |
+| **Reporting bugs breaking tests** | Every hook catches exceptions and logs warnings without changing test verdicts |
 
 <details>
-<summary><b>📦 npm (any OS)</b></summary>
+<summary><b>Requirements, installer behavior &amp; all 13 installed files (including Linux JDK 21 &amp; Maven JAR fetcher)</b></summary>
 
-Needs Node.js. Works identically on Windows, macOS, and Linux.
+- **Requirements:** Katalon Studio (Java 17/21 runtime) on Windows, macOS, or Linux — zero external CLI tools required (in-process Java generation via 4 JARs in `payload/Drivers/`). On **Linux**, Katalon `11.3.0+` OSGi bundles require JavaSE 21 (`JAVA_HOME` set to JDK 21).
+- **What the installer does:**
+  1. Verifies the target folder contains a `*.prj` Katalon project file before writing anything.
+  2. Copies the Listener, Keywords, config, `Drivers/` JARs, and launcher helpers.
+  3. Preserves an existing `extent.properties` unless `--force` / `-Force` is passed.
+  4. Tracks installed paths in `.extent-bridge/manifest.txt` so uninstall cleanly removes only bridge files.
+  5. Registers the 4 JARs in `.classpath` (when present) so Katalon resolves Extent classes without extra manual steps. Re-running upgrades in place.
 
-```
-npx extent-katalon-bridge install "/path/to/your/katalon/project"      # add --force to also overwrite a customized extent.properties
-npx extent-katalon-bridge uninstall "/path/to/your/katalon/project"    # add --remove-config to also delete extent.properties/categories.json
-```
-
-`npx` fetches and runs it without installing anything globally. To install
-it once and reuse it: `npm install -g extent-katalon-bridge`, then run
-`extent-katalon-bridge install ...` directly.
-</details>
-
-<details>
-<summary><b>🪟 Windows/</b></summary>
-
-**Just click:** double-click **`Windows\Install.bat`**, then pick your
-Katalon project folder in the dialog that opens. Uninstall the same way
-with **`Windows\Uninstall.bat`**.
-
-**Drag-and-drop:** drop your project folder onto `Install.bat` (or
-`Uninstall.bat`) to skip the dialog entirely.
-
-**Scripted / CI** (run from the repo root):
-```powershell
-.\Windows\install.ps1 -ProjectPath "C:\path\to\your\katalon\project"      # add -Force to also overwrite a customized extent.properties
-.\Windows\uninstall.ps1 -ProjectPath "C:\path\to\your\katalon\project"    # add -RemoveConfig to also delete extent.properties/categories.json
-```
-</details>
-
-<details>
-<summary><b>🍎 macOS/</b></summary>
-
-**Just click:** double-click **`macOS\Install.command`**, then pick your
-Katalon project folder in the dialog that opens. Uninstall the same way
-with **`macOS\Uninstall.command`**.
-
-**Scripted / CI** - macOS shares the Linux bash engine below:
-```bash
-./Linux/install.sh /path/to/your/katalon/project      # add --force to also overwrite a customized extent.properties
-./Linux/uninstall.sh /path/to/your/katalon/project    # add --remove-config to also delete extent.properties/categories.json
-```
-</details>
-
-<details>
-<summary><b>🐧 Linux/</b></summary>
-
-```bash
-./Linux/install.sh /path/to/your/katalon/project      # add --force to also overwrite a customized extent.properties
-./Linux/uninstall.sh /path/to/your/katalon/project    # add --remove-config to also delete extent.properties/categories.json
-```
-Run either script with no path argument and it'll prompt you to paste one instead.
-</details>
-
-Uninstalling only removes what was installed, and keeps your
-`extent.properties`/`categories.json` and any generated `extent-results/`
-`extent-report/` in place unless you pass the force/remove-config flag
-shown above.
-
-## What the installer actually does
-
-1. Verifies the target folder is a real Katalon project (looks for a
-   `*.prj` file) before writing anything - refuses to run otherwise.
-2. Copies the Test Listener, Keywords, config, and Drivers jars into it.
-3. Leaves an existing, customized `extent.properties` alone (pass `-Force`
-   / `--force` to overwrite it too).
-4. Records everything it installed in `<project>/.extent-bridge/manifest.txt`,
-   so uninstall can remove exactly that later - nothing else in the project
-   is ever touched.
-5. Registers the four Drivers jars in `.classpath` if one exists, so
-   Katalon's editor resolves the Extent classes without a manual refresh.
-
-Re-running install against the same project **upgrades** it in place.
-
-## What gets installed
-
-```
-Test Listeners/ExtentTestListener.groovy       auto-discovered by Katalon - the only wiring needed
+```text
+Test Listeners/ExtentTestListener.groovy       auto-discovered by Katalon — the only wiring needed
 Keywords/extent/ExtentReportBridge.groovy      engine: lifecycle mapping, step capture, report assembly
-Keywords/extent/ExtentConfig.groovy            extent.properties reader, with EXTENT_* env var overrides
-Keywords/extent/ExtentKeywords.groovy          optional: step(), info/warning/pass/fail(), attachScreenshot()
+Keywords/extent/ExtentConfig.groovy            extent.properties reader + EXTENT_* env var overrides
+Keywords/extent/ExtentKeywords.groovy          optional API: step(), info/warning/pass/fail(), attachScreenshot()
 Include/config/extent/extent.properties        configuration
 Include/config/extent/categories.json          failure categorization tuned to Katalon/Selenium exception types
 Drivers/extentreports-5.1.2.jar                Apache-2.0, Extent Framework
 Drivers/freemarker-2.3.32.jar                  Apache-2.0, Apache Software Foundation
 Drivers/rxjava-3.1.6.jar                       Apache-2.0, RxJava Contributors
 Drivers/reactive-streams-1.0.4.jar             CC0 1.0 (public domain)
-Drivers/fetch-extent-jars.ps1                  re-download the 4 jars from Maven Central (sha1-verified) if your org won't commit binaries to git
-View Extent Report.bat / .command              optional convenience: opens the most recent report for you (Windows / macOS)
-view-extent-report.sh                          same, for Linux/CI or manual use
+Drivers/fetch-extent-jars.ps1                  sha1-verified Maven Central fetcher if your org omits binary JARs in git
+View Extent Report.bat / .command              optional convenience helper to open the latest Index.html (Win / macOS)
+view-extent-report.sh                          same helper for Linux/CI
 ```
 
-### Do you actually need "View Extent Report"?
+- **Do you need `View Extent Report`?** No — every run already writes a standalone `extent-report/<Name>_<timestamp>/Index.html` you can open directly in any browser without a server.
 
-No. Every run writes its own self-contained
-`extent-report/<Name>_<timestamp>/` folder - open `Index.html` inside it
-directly in a browser, no server needed. `View Extent Report` is a
-convenience that finds the newest one for you so you don't have to hunt
-through timestamped folder names.
+</details>
 
-## Using it
+---
 
-**Zero-touch (default):** every test suite run automatically produces one
-Extent Reports test entry per test case - status, timing, a failure
-screenshot (WebUI only, embedded inline, no separate image files), the full
-nested step tree pulled straight from Katalon's own execution log, and
-automatic failure categorization (Object Repository issues, timeouts,
-assertion failures, environment/infrastructure issues, script/data issues -
-tuned for Katalon/Selenium, editable in `Include/config/extent/
-categories.json`).
+## Install &amp; uninstall
 
-`<Name>` in the report path is a Test Suite Collection's name if you ran
-one, otherwise the Test Suite's name, or a lone Test Case's own name if run
-directly without a saved suite. A Test Suite Collection produces exactly
-one combined report, not one per Test Suite. Suites are listed
-alphabetically by name in the report's Suites tab; a suite that runs more
-than once in one Collection (e.g. the same suite with two different
-browsers) shows up as its own separate entry each time, labeled by browser
-- or with no browser label at all if that particular occurrence never
-actually opened one (an API-only run, or a WebUI session that failed to
-start).
+<table width="100%">
+<tr>
+<td width="33.3%" valign="top">
+  <strong>1 · npm / npx (Any OS)</strong><br><br>
+  <pre>npx extent-katalon-bridge install &lt;dir&gt;
+npx extent-katalon-bridge uninstall &lt;dir&gt;</pre>
+  Add <code>--force</code> on install or <code>--remove-config</code> on uninstall when needed.
+</td>
+<td width="33.3%" valign="top">
+  <strong>2 · Double-Click OS Installers</strong><br><br>
+  • <b>Windows:</b> <code>Windows\Install.bat</code><br>
+  • <b>macOS:</b> <code>macOS\Install.command</code><br>
+  • <b>Linux:</b> <code>./Linux/install.sh &lt;dir&gt;</code>
+</td>
+<td width="33.3%" valign="top">
+  <strong>3 · GitHub Actions</strong><br><br>
+  <pre>- uses: montbaga/extent-katalon-bridge@v1
+  with:
+    project-path: .</pre>
+  Works directly from the tagged Action — zero npm or clone steps needed.
+</td>
+</tr>
+</table>
 
-**Opt-in extra detail**, from inside a Test Case script or Cucumber glue:
+<details>
+<summary><b>All OS commands, drag-and-drop, global npm &amp; config preservation flags</b></summary>
+
+- **Global npm reuse:** `npm install -g extent-katalon-bridge` then `extent-katalon-bridge install "/path/to/your/katalon/project"`.
+- **Windows GUI, drag-and-drop, &amp; PowerShell:** Double-click `Windows\Install.bat` / `Windows\Uninstall.bat`, drag a project folder directly onto either `.bat`, or script via PowerShell:
+  ```powershell
+  .\Windows\install.ps1 -ProjectPath "C:\path\to\your\katalon\project"      # add -Force to overwrite extent.properties
+  .\Windows\uninstall.ps1 -ProjectPath "C:\path\to\your\katalon\project"    # add -RemoveConfig to delete properties & categories
+  ```
+- **macOS &amp; Linux CLI:** Double-click `macOS\Install.command` / `Uninstall.command`, or run the shared bash engine (prompts if path is omitted):
+  ```bash
+  ./Linux/install.sh /path/to/your/katalon/project      # add --force to overwrite customized config
+  ./Linux/uninstall.sh /path/to/your/katalon/project    # add --remove-config to remove config files
+  ```
+- Uninstalling removes only bridge-installed files and preserves `extent.properties`, `categories.json`, `extent-results/`, and `extent-report/` unless overridden with `--force` / `--remove-config`.
+
+</details>
+
+---
+
+## Using it &amp; configuration
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="demo/images/lifecycle-flow-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="demo/images/lifecycle-flow-light.svg">
+  <img src="demo/images/lifecycle-flow-dark.svg" alt="Extent-Katalon Bridge lifecycle from ExtentTestListener to standalone HTML" width="100%">
+</picture>
+
+<br><br>
+
+- **Zero-touch output:** After reopening/refreshing your project, every run generates `extent-report/<Name>_<timestamp>/Index.html` (`<Name>` = Test Suite Collection name, Test Suite name, or lone Test Case name) containing nested step trees, inline base64 failure screenshots (WebUI only, no loose image files), and automatic failure categories from `Include/config/extent/categories.json`.
+- **Collections &amp; multi-browser suites:** A Collection emits **one combined report** sorted alphabetically in the Suites tab; duplicate suite runs appear separately with browser labels (omitting labels cleanly on API-only runs or WebUI sessions that failed before opening a browser).
+- **Opt-in Groovy helpers (`ExtentKeywords`):** Layer custom business steps, manual messages, or extra screenshots whenever useful:
 
 ```groovy
 CustomKeywords.'extent.ExtentKeywords.step'('Log in as admin', {
@@ -271,106 +200,120 @@ CustomKeywords.'extent.ExtentKeywords.info'('Using seeded test account #4')
 CustomKeywords.'extent.ExtentKeywords.attachScreenshot'('Before checkout')
 ```
 
-This is a deliberately small, opt-in API - `step()` for nested detail,
-`info`/`warning`/`pass`/`fail()` for a manual log line, and
-`attachScreenshot()` for an extra capture. Nothing here is required; every
-test case already gets a full report entry with zero code changes.
+<details>
+<summary><b>All 10 configuration keys (<code>Include/config/extent/extent.properties</code> + <code>EXTENT_*</code> env vars)</b></summary>
 
-## Configuration
-
-Edit `Include/config/extent/extent.properties` in the target project, or
-override any key per environment with `EXTENT_<KEY_IN_UPPER_SNAKE_CASE>`
-(e.g. `extent.results.dir` -> `EXTENT_RESULTS_DIR`):
+Override any key in `extent.properties` or via `EXTENT_<KEY_IN_UPPER_SNAKE_CASE>` (e.g. `extent.results.dir` → `EXTENT_RESULTS_DIR`):
 
 | Key | Default | Meaning |
-|---|---|---|
-| `extent.enabled` | `true` | Master switch |
-| `extent.results.dir` | `extent-results` | Working storage for intermediate per-test-case records - not meant to be read directly |
-| `extent.clean.results.before.run` | `true` | Clear last run's records before each suite starts |
-| `extent.attach.screenshot.on.failure` | `true` | Screenshot on any non-PASSED status (WebUI only) |
-| `extent.attach.screenshot.always` | `false` | Screenshot on every test case |
-| `extent.categories.file` | `Include/config/extent/categories.json` | Failure categorization template |
-| `extent.auto.generate.report` | `true` | Assemble the HTML report at the end of the run - happens in-process, never shells out to a commandline |
-| `extent.report.dir` | `extent-report` | Base folder for generated reports; each run writes its own `<Name>_<timestamp>/` folder here |
-| `extent.report.theme` | `standard` | `standard` or `dark` |
-| `extent.capture.steps` | `true` | Auto-convert Katalon's execution log into nested Extent steps |
+| :--- | :--- | :--- |
+| `extent.enabled` | `true` | Master bridge switch |
+| `extent.results.dir` | `extent-results` | Intermediate per-test records |
+| `extent.clean.results.before.run` | `true` | Clear prior records before each suite starts |
+| `extent.attach.screenshot.on.failure` | `true` | Inline screenshot on any non-`PASSED` status (WebUI only) |
+| `extent.attach.screenshot.always` | `false` | Capture screenshot on every test case |
+| `extent.categories.file` | `Include/config/extent/categories.json` | Failure categorization rules |
+| `extent.auto.generate.report` | `true` | Assemble `Index.html` in-process at run end (no external CLI) |
+| `extent.report.dir` | `extent-report` | Base directory for `<Name>_<timestamp>/` outputs |
+| `extent.report.theme` | `standard` | `standard` or `dark` Spark theme |
+| `extent.capture.steps` | `true` | Auto-convert Katalon's execution log into nested steps |
+
+</details>
+
+---
 
 ## CI setup
 
-`executor.json`-equivalent detection is automatic: the generated report's
-System Info panel picks up Jenkins, Azure Pipelines, GitHub Actions, and
-GitLab CI from each platform's own standard environment variables, so it's
-clear which build produced it - nothing to configure for that part on any
-of them.
+Verified end to end across **Windows, macOS, and Linux** hosted Azure Pipelines agents (plus GitHub Actions and GitLab CI) using the same Test Suite Collection unmodified — and CI metadata (`Jenkins`, `Azure Pipelines`, `GitHub Actions`, `GitLab CI`) populates the System Info panel automatically. Full example in [`azure-pipelines.example.yml`](azure-pipelines.example.yml).
 
-This repo includes three ready-to-copy configs -
-[`azure-pipelines.example.yml`](azure-pipelines.example.yml),
-[`github-actions.example.yml`](github-actions.example.yml),
-[`gitlab-ci.example.yml`](gitlab-ci.example.yml). Pick the one matching
-your platform, copy it in under the filename your CI expects, fill in the
-one TODO (your Test Suite or Test Suite Collection path), and add your
-Katalon API key as described below.
+<table>
+  <tr>
+    <th>Platform</th>
+    <th>Hosted Agent Run</th>
+    <th>Generated Extent Report</th>
+    <th>Published Build Artifact</th>
+  </tr>
+  <tr>
+    <td><b>Windows</b></td>
+    <td><img src="demo/images/windows_ci.png" alt="Azure Pipelines Windows job" width="210"></td>
+    <td><img src="demo/images/extent_report_windows_ci.png" alt="Extent report generated on Windows CI" width="210"></td>
+    <td><img src="demo/images/windows_artifacts.png" alt="Published Windows pipeline artifacts" width="210"></td>
+  </tr>
+  <tr>
+    <td><b>macOS</b></td>
+    <td><img src="demo/images/ci_macos.png" alt="Azure Pipelines macOS job" width="210"></td>
+    <td><img src="demo/images/extent_report_macos_ci.jpeg" alt="Extent report generated on macOS CI" width="210"></td>
+    <td><img src="demo/images/macos_artifacts.png" alt="Published macOS pipeline artifacts" width="210"></td>
+  </tr>
+  <tr>
+    <td><b>Linux</b></td>
+    <td><img src="demo/images/ci_linux.png" alt="Azure Pipelines Linux job" width="210"></td>
+    <td><img src="demo/images/extent_report_linux_ci.jpeg" alt="Extent report generated on Linux CI" width="210"></td>
+    <td><img src="demo/images/ci_linux_artifacts.png" alt="Published Linux pipeline artifacts" width="210"></td>
+  </tr>
+</table>
 
-### Azure Pipelines
+<details>
+<summary><b>Complete CI guides (Azure Pipelines, GitHub Actions <code>@v1</code> &amp; GitLab CI Docker Chrome note)</b></summary>
 
-1. Copy `azure-pipelines.example.yml` into your repo as `azure-pipelines.yml`.
-2. Install the **"Execute Katalon Studio Tests"** extension from the Azure
-   DevOps Marketplace if your organization doesn't already have it.
-3. Under **Pipelines → Library**, create a variable group named `Katalon`
-   with a secret variable `KatalonApiKey` holding your Katalon Runtime
-   Engine API key (Katalon Store → Profile → API Key).
-4. Replace `<YourCollection>` in the `executeArgs` line with your actual
-   Test Suite Collection path (or swap `-testSuiteCollectionPath` for
-   `-testSuitePath="Test Suites/<YourSuite>"` to run a single suite
-   instead).
-5. Commit and push - the pipeline runs on every push to `main`.
+| Platform | Ready-to-Copy Config | Setup Summary |
+| :--- | :--- | :--- |
+| **Azure Pipelines** | [`azure-pipelines.example.yml`](azure-pipelines.example.yml) | Install **Execute Katalon Studio Tests** extension; create variable group `Katalon` (`KatalonApiKey`); swap `<YourCollection>` (`-testSuiteCollectionPath` or `-testSuitePath`); download `katalon-reports` &amp; `extent-report` from **Summary → Artifacts** |
+| **GitHub Actions** | [`github-actions.example.yml`](github-actions.example.yml) | Add repo secret `KATALON_API_KEY`; swap `<YourCollection>`; runs via `uses: montbaga/extent-katalon-bridge@v1` cleanly without npm; publishes artifacts under the **Actions** run summary |
+| **GitLab CI** | [`gitlab-ci.example.yml`](gitlab-ci.example.yml) | Add masked variable `KATALON_API_KEY`; uses official `katalonstudio/katalon` Docker image (**Chrome**, not Edge — adjust `-browserType` accordingly); outputs under **Job artifacts** |
 
-Reports show up on the pipeline run's **Summary** tab, in the small
-"X published" artifacts panel near the top - both the raw Katalon output
-(`katalon-reports`) and the generated Extent HTML (`extent-report`).
+</details>
 
-### GitHub Actions
+---
 
-1. Copy `github-actions.example.yml` into your repo as
-   `.github/workflows/katalon-ci.yml`.
-2. Under **Settings → Secrets and variables → Actions**, add a repository
-   secret named `KATALON_API_KEY` with your Katalon Runtime Engine API key.
-3. Replace `<YourCollection>` in the `args` line the same way as above.
-4. Commit and push.
+## Sponsors, support &amp; license
 
-Reports show up on the **Actions** tab, under that run's summary page, in
-the **Artifacts** section at the bottom. This example references the
-bridge itself as a GitHub Action (`uses: montbaga/extent-katalon-bridge@v1`)
-rather than `npx` - it works directly from a tagged release, with no
-dependency on npm at all.
+<details>
+<summary><b>Support promise, Sponsor tiers, Backers &amp; <code>Apache-2.0</code> / <code>CC0</code> JAR licenses</b></summary>
 
-### GitLab CI
+### Active Maintenance Commitment
+Bugs in this bridge's own code are fixed directly, and where upstream Extent Reports `5.1.2` has quirks that break report accuracy, this bridge implements workarounds rather than leaving reports broken.
 
-1. Copy `gitlab-ci.example.yml` into your repo as `.gitlab-ci.yml`.
-2. Under **Settings → CI/CD → Variables**, add a variable named
-   `KATALON_API_KEY` with your Katalon Runtime Engine API key, and check
-   "Mask variable".
-3. Replace `<YourCollection>` in the `script` line the same way as above.
-4. Commit and push.
+### Sponsor via [GitHub Sponsors](https://github.com/sponsors/montbaga)
+| Tier | Price | Gets You |
+| :--- | :--- | :--- |
+| **Coffee** | \$5/mo | Your name listed in Backers |
+| **Backer** | \$15/mo | Above + priority attention on your issues |
+| **Company** | \$100/mo | Company logo and site link near the top of this README |
+| **Priority Partner** | \$199/mo | Above + direct email help wiring the bridge into your CI setup |
 
-This one differs from the other two in one respect: it uses Katalon's own
-official Docker image (`katalonstudio/katalon`) instead of downloading
-Katalon onto a hosted VM, so it runs on **Chrome, not Edge** - adjust
-`-browserType` and any browser-specific test logic accordingly.
+Thanks to everyone supporting ongoing maintenance across Katalon &amp; CI toolchains.
 
-Reports show up on the pipeline job's page, in the **Job artifacts** panel.
+### License ([`LICENSE.md`](LICENSE.md)) &amp; Internals ([`ARCHITECTURE.md`](ARCHITECTURE.md))
+Apache License 2.0 · Copyright 2026 Monty Bagati. Bundled `payload/Drivers/` components remain under their own licenses: `extentreports-5.1.2.jar` (© Anshoo Arora / Extent Framework, Apache-2.0), `freemarker-2.3.32.jar` (Apache-2.0), `rxjava-3.1.6.jar` (Apache-2.0), and `reactive-streams-1.0.4.jar` (CC0 1.0 Universal public domain).
 
-## Support
+</details>
 
-**Actively maintained.** Questions or bug reports: open an issue on this
-repo, or reach out directly: **bagati.monty@gmail.com**.
+---
 
-Bugs in this bridge's own code, we fix directly. Extent Reports itself
-won't get further updates from its own maintainer, but where its behavior
-doesn't produce a correct report, this bridge works around it rather than
-leaving it broken - real issues get addressed here even when the
-underlying library itself can't be.
+## Let's talk
 
-## License
+<div align="center">
 
-See [`LICENSE.md`](LICENSE.md).
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="demo/images/contact-card-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="demo/images/contact-card-light.svg">
+  <img src="demo/images/contact-card-dark.svg" alt="Direct line to Monty Bagati — Extent Reports workarounds, CI pipelines, and feedback" width="100%">
+</picture>
+
+<br><br>
+
+<a href="mailto:bagati.monty@gmail.com?subject=Extent-Katalon%20Bridge%20%E2%80%94%20Hello%20Monty"><img alt="Email Monty Bagati" src="https://img.shields.io/badge/Email-bagati.monty%40gmail.com-ff7b3b?style=for-the-badge&logo=gmail&logoColor=ff7b3b&labelColor=0d1221"></a>
+&nbsp;
+<a href="https://www.linkedin.com/in/monty-bagati-90454626/"><img alt="Connect on LinkedIn" src="https://img.shields.io/badge/LinkedIn-Monty_Bagati-ece6da?style=for-the-badge&logo=linkedin&logoColor=ece6da&labelColor=0d1221"></a>
+&nbsp;
+<a href="https://github.com/montbaga"><img alt="GitHub Profile" src="https://img.shields.io/badge/GitHub-%40montbaga-3dd98f?style=for-the-badge&logo=github&logoColor=3dd98f&labelColor=0d1221"></a>
+&nbsp;
+<a href="https://github.com/montbaga/extent-katalon-bridge/issues/new"><img alt="Open an Issue or Request" src="https://img.shields.io/badge/Feedback-Report_or_Suggest-818cf8?style=for-the-badge&logo=github&logoColor=818cf8&labelColor=0d1221"></a>
+
+<br><br>
+
+**Extent-Katalon Bridge `v1.0.2`** · Built by [**Monty Bagati**](https://www.linkedin.com/in/monty-bagati-90454626/)  
+<sub>Apache License 2.0 · Copyright 2026 Monty Bagati · Bundled jars Apache-2.0 / CC0</sub>
+
+</div>

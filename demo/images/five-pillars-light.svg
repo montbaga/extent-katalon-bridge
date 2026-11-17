@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 176" width="1200" height="176" role="img" aria-label="Five capabilities built into Extent-Katalon Bridge">
+  <defs>
+    <style>
+      .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <rect x="12" y="10" width="1176" height="156" rx="16" fill="#ebeff9" stroke="#c4cde3" stroke-width="1.2"/>
+  <text x="32" y="35" class="mono" font-size="10.5" letter-spacing="1.2" fill="#4f5b75">FIVE WAYS IT REPLACES THE OFFICIAL PLUGIN  ·  VERIFIED WIN / MAC / LINUX CI</text>
+  <text x="1168" y="35" text-anchor="end" class="mono" font-size="10.5" letter-spacing="1.0" fill="#4f5b75">NO OSGI · ACTIVELY MAINTAINED</text>
+
+  <rect x="28" y="48" width="216" height="104" rx="11" fill="#ffffff" stroke="#ccd4e8"/>
+  <rect x="44" y="61" width="84" height="19" rx="5" fill="#ecebff" stroke="#4f46e5" stroke-opacity="0.4"/>
+  <text x="86" y="74" text-anchor="middle" class="mono" font-size="9.5" fill="#4338ca">01 · NO STORE</text>
+  <circle cx="226" cy="70" r="3.5" fill="#4f46e5">
+    <animate attributeName="opacity" values="0.25;1;0.25" dur="3.0s" begin="0s" repeatCount="indefinite"/>
+  </circle>
+  <text x="44" y="99" class="sans" font-size="14" font-weight="700" fill="#0f1526">Zero Store Plugin</text>
+  <text x="44" y="118" class="sans" font-size="11.2" fill="#445069">Ships 4 tested JARs +</text>
+  <text x="44" y="134" class="sans" font-size="11.2" fill="#445069">pre-wired listener directly.</text>
+
+  <rect x="258" y="48" width="216" height="104" rx="11" fill="#ffffff" stroke="#ccd4e8"/>
+  <rect x="274" y="61" width="76" height="19" rx="5" fill="#e6f7ef" stroke="#118a52" stroke-opacity="0.4"/>
+  <text x="312" y="74" text-anchor="middle" class="mono" font-size="9.5" fill="#0f7846">02 · STEPS</text>
+  <circle cx="456" cy="70" r="3.5" fill="#118a52">
+    <animate attributeName="opacity" values="0.25;1;0.25" dur="3.0s" begin="0.6s" repeatCount="indefinite"/>
+  </circle>
+  <text x="274" y="99" class="sans" font-size="14" font-weight="700" fill="#0f1526">Auto Step Tree</text>
+  <text x="274" y="118" class="sans" font-size="11.2" fill="#445069">Converts execution logs</text>
+  <text x="274" y="134" class="sans" font-size="11.2" fill="#445069">with zero attachLog() calls.</text>
+
+  <rect x="488" y="48" width="216" height="104" rx="11" fill="#ffffff" stroke="#ccd4e8"/>
+  <rect x="504" y="61" width="76" height="19" rx="5" fill="#fdece4" stroke="#d94e14" stroke-opacity="0.4"/>
+  <text x="542" y="74" text-anchor="middle" class="mono" font-size="9.5" fill="#c2400c">03 · TAGS</text>
+  <circle cx="686" cy="70" r="3.5" fill="#d94e14">
+    <animate attributeName="opacity" values="0.25;1;0.25" dur="3.0s" begin="1.2s" repeatCount="indefinite"/>
+  </circle>
+  <text x="504" y="99" class="sans" font-size="14" font-weight="700" fill="#0f1526">Categories JSON</text>
+  <text x="504" y="118" class="sans" font-size="11.2" fill="#445069">Auto-tags timeouts, OR,</text>
+  <text x="504" y="134" class="sans" font-size="11.2" fill="#445069">&amp; assertion failures.</text>
+
+  <rect x="718" y="48" width="216" height="104" rx="11" fill="#ffffff" stroke="#ccd4e8"/>
+  <rect x="734" y="61" width="84" height="19" rx="5" fill="#e6f4fc" stroke="#0284c7" stroke-opacity="0.4"/>
+  <text x="776" y="74" text-anchor="middle" class="mono" font-size="9.5" fill="#0369a1">04 · SHOTS</text>
+  <circle cx="916" cy="70" r="3.5" fill="#0284c7">
+    <animate attributeName="opacity" values="0.25;1;0.25" dur="3.0s" begin="1.8s" repeatCount="indefinite"/>
+  </circle>
+  <text x="734" y="99" class="sans" font-size="14" font-weight="700" fill="#0f1526">Inline Screenshots</text>
+  <text x="734" y="118" class="sans" font-size="11.2" fill="#445069">WebUI captures embedded;</text>
+  <text x="734" y="134" class="sans" font-size="11.2" fill="#445069">standard or dark theme.</text>
+
+  <rect x="948" y="48" width="216" height="104" rx="11" fill="#ffffff" stroke="#ccd4e8"/>
+  <rect x="964" y="61" width="84" height="19" rx="5" fill="#fcf3df" stroke="#b37400" stroke-opacity="0.4"/>
+  <text x="1006" y="74" text-anchor="middle" class="mono" font-size="9.5" fill="#9c6200">05 · SAFE</text>
+  <circle cx="1146" cy="70" r="3.5" fill="#b37400">
+    <animate attributeName="opacity" values="0.25;1;0.25" dur="3.0s" begin="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <text x="964" y="99" class="sans" font-size="14" font-weight="700" fill="#0f1526">Actively Maintained</text>
+  <text x="964" y="118" class="sans" font-size="11.2" fill="#445069">Safe hooks; works around</text>
+  <text x="964" y="134" class="sans" font-size="11.2" fill="#445069">upstream Extent 5 quirks.</text>
+</svg>
